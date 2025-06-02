@@ -1,35 +1,83 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import "./App.css";
 
+interface MeroProps {
+  children: React.ReactNode;
+  collapsedNumWords?: number;
+  expandButtonText?: string;
+  collapsedButtonText?: string;
+  buttonColor?: string;
+  expanded?: boolean;
+  className?: string;
+}
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <TextExpander
+        collapsedNumWords={20}
+        collapsedButtonText="Show Less"
+        expandButtonText="Show More"
+        buttonColor="#ff6622"
+        expanded={false}
+      >
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione sit
+        quidem exercitationem doloribus delectus aspernatur numquam voluptatem,
+        fugit nemo veritatis incidunt nobis voluptates expedita eveniet? Saepe,
+        error ducimus. Eaque, laboriosam?
+      </TextExpander>
+      <TextExpander
+        collapsedNumWords={20}
+        collapsedButtonText="Show Less"
+        expandButtonText="Show More"
+        buttonColor="#ff6622"
+        expanded={true}
+      >
+        Consectetur adipisicing elit. Ratione sit quidem exercitationem
+        doloribus delectus aspernatur numquam voluptatem, fugit nemo ver Lorem
+        ipsum dolor sit amet itatis incidunt nobis voluptates expedita eveniet?
+        Saepe, error ducimus. Eaque, laboriosam?
+      </TextExpander>
+      <TextExpander expanded={false} className="box">
+        Doloribus delectus aspernatur numquam voluptatem, fugit nemo veri Lorem
+        ipsum dolor sit amet consectetur adipisicing elit. Ratione sit quidem
+        exercitationem tatis incidunt nobis voluptates expedita eveniet? Saepe,
+        error ducimus. Eaque, laboriosam?
+      </TextExpander>
     </>
-  )
+  );
 }
 
-export default App
+function TextExpander({
+  children,
+  className,
+  collapsedButtonText = "Show Less",
+  expandButtonText = "Show More",
+  buttonColor = "#ff6622",
+  expanded = false,
+}: MeroProps) {
+  const [isExpanded, setIsExpanded] = useState(expanded);
+  // const displayOkText = isExpanded
+  //   ? children
+  //   : children.split(" ").slice(0, 4).join("");
+  const displayOkText = isExpanded
+    ? children
+    : "Hello this is collapsed text...";
+
+  const buttonStyle = {
+    border: "none",
+    background: "none",
+    fontStyle: "inherit",
+    cursor: "pointer",
+    marginLeft: "6px",
+    color: buttonColor,
+  };
+  return (
+    <div className={className}>
+      <span>{displayOkText}</span>
+      <button onClick={() => setIsExpanded(!isExpanded)} style={buttonStyle}>
+        {isExpanded ? collapsedButtonText : expandButtonText}
+      </button>
+    </div>
+  );
+}
+export default App;
