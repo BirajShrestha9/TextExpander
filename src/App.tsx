@@ -2,7 +2,7 @@ import { useState } from "react";
 import "./App.css";
 
 interface MeroProps {
-  children: React.ReactNode;
+  children: string;
   collapsedNumWords?: number;
   expandButtonText?: string;
   collapsedButtonText?: string;
@@ -29,7 +29,7 @@ function App() {
         collapsedNumWords={20}
         collapsedButtonText="Show Less"
         expandButtonText="Show More"
-        buttonColor="#ff6622"
+        buttonColor="#1f09cd"
         expanded={true}
       >
         Consectetur adipisicing elit. Ratione sit quidem exercitationem
@@ -38,10 +38,7 @@ function App() {
         Saepe, error ducimus. Eaque, laboriosam?
       </TextExpander>
       <TextExpander expanded={false} className="box">
-        Doloribus delectus aspernatur numquam voluptatem, fugit nemo veri Lorem
-        ipsum dolor sit amet consectetur adipisicing elit. Ratione sit quidem
-        exercitationem tatis incidunt nobis voluptates expedita eveniet? Saepe,
-        error ducimus. Eaque, laboriosam?
+        67
       </TextExpander>
     </>
   );
@@ -56,12 +53,13 @@ function TextExpander({
   expanded = false,
 }: MeroProps) {
   const [isExpanded, setIsExpanded] = useState(expanded);
-  // const displayOkText = isExpanded
-  //   ? children
-  //   : children.split(" ").slice(0, 4).join("");
+  console.log(children);
   const displayOkText = isExpanded
     ? children
-    : "Hello this is collapsed text...";
+    : children.split(" ").slice(0, 4).join(" ");
+  // const displayOkText = isExpanded
+  //   ? children
+  //   : "Hello this is collapsed text...";
 
   const buttonStyle = {
     border: "none",
